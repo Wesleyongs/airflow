@@ -47,17 +47,20 @@ dag = taskflow()
 def transform_df(df):
     stopwords = ['Mr.', 'Mrs.']
 
+    # drop blank name columns
+    df=df.dropna(subset=['name'])
+    
     # name split
     name_split_list = df['name'].str.split(" ")
     name_split_list = name_split_list.apply(lambda x: [i for i in x if i not in stopwords])
     df['first_name'] = name_split_list.str[0]
-    df['last_name'] = name_split_list.str[1:].apply(lambda x: " ".join(x))
-
-    # drop blank name columns
-    df=df.dropna(subset=['name'])
+    df['last_name'] = name_split_list.str[1:].apply(lambda x: " ".join(x))    
 
     # remove 0 
     df['price'] = df['price'].apply(lambda x: float(str(x).rstrip("0")))
                                                                 
     # new column
     df['above_100'] = df['price'].apply(lambda x: True if x > 100 else False)  
+    
+    
+    return df
