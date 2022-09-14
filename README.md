@@ -3,13 +3,13 @@
 
 ## Installation
 
-If this repo is not in linux root directory, may need to configure airflow.config file
+If this repo is not in linux root directory, may need to configure the following variable in the airflow.config file
 ```bash
 dags_folder = ~/airflow/dags
 ```
 
 ## Start up
-
+Install requirements
 ```bash
 airflow scheduler
 ```
